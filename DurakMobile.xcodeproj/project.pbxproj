@@ -1,0 +1,282 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		CEBDC36E15E7C39900C53B76 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEBDC36D15E7C39900C53B76 /* UIKit.framework */; };
+		CEBDC37015E7C39900C53B76 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEBDC36F15E7C39900C53B76 /* Foundation.framework */; };
+		CEBDC37215E7C39900C53B76 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEBDC37115E7C39900C53B76 /* CoreGraphics.framework */; };
+		CEBDC37815E7C39900C53B76 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CEBDC37615E7C39900C53B76 /* InfoPlist.strings */; };
+		CEBDC37A15E7C39900C53B76 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CEBDC37915E7C39900C53B76 /* main.m */; };
+		CEBDC37E15E7C39900C53B76 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CEBDC37D15E7C39900C53B76 /* AppDelegate.m */; };
+		CEBDC38115E7C39900C53B76 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEBDC38015E7C39900C53B76 /* ViewController.m */; };
+		CEBDC38415E7C39900C53B76 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CEBDC38215E7C39900C53B76 /* ViewController.xib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		CEBDC36915E7C39900C53B76 /* DurakMobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DurakMobile.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CEBDC36D15E7C39900C53B76 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		CEBDC36F15E7C39900C53B76 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		CEBDC37115E7C39900C53B76 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		CEBDC37515E7C39900C53B76 /* DurakMobile-Info.plist */ = {isa = PBXFileReference; path = "DurakMobile-Info.plist"; sourceTree = "<group>"; };
+		CEBDC37715E7C39900C53B76 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		CEBDC37915E7C39900C53B76 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		CEBDC37B15E7C39900C53B76 /* DurakMobile-Prefix.pch */ = {isa = PBXFileReference; path = "DurakMobile-Prefix.pch"; sourceTree = "<group>"; };
+		CEBDC37C15E7C39900C53B76 /* AppDelegate.h */ = {isa = PBXFileReference; path = AppDelegate.h; sourceTree = "<group>"; };
+		CEBDC37D15E7C39900C53B76 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		CEBDC37F15E7C39900C53B76 /* ViewController.h */ = {isa = PBXFileReference; path = ViewController.h; sourceTree = "<group>"; };
+		CEBDC38015E7C39900C53B76 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		CEBDC38315E7C39900C53B76 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController.xib; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		CEBDC36615E7C39900C53B76 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CEBDC36E15E7C39900C53B76 /* UIKit.framework in Frameworks */,
+				CEBDC37015E7C39900C53B76 /* Foundation.framework in Frameworks */,
+				CEBDC37215E7C39900C53B76 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		CEBDC35E15E7C39900C53B76 = {
+			isa = PBXGroup;
+			children = (
+				CEBDC37315E7C39900C53B76 /* DurakMobile */,
+				CEBDC36C15E7C39900C53B76 /* Frameworks */,
+				CEBDC36A15E7C39900C53B76 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		CEBDC36A15E7C39900C53B76 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CEBDC36915E7C39900C53B76 /* DurakMobile.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CEBDC36C15E7C39900C53B76 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CEBDC36D15E7C39900C53B76 /* UIKit.framework */,
+				CEBDC36F15E7C39900C53B76 /* Foundation.framework */,
+				CEBDC37115E7C39900C53B76 /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CEBDC37315E7C39900C53B76 /* DurakMobile */ = {
+			isa = PBXGroup;
+			children = (
+				CEBDC37C15E7C39900C53B76 /* AppDelegate.h */,
+				CEBDC37D15E7C39900C53B76 /* AppDelegate.m */,
+				CEBDC37F15E7C39900C53B76 /* ViewController.h */,
+				CEBDC38015E7C39900C53B76 /* ViewController.m */,
+				CEBDC38215E7C39900C53B76 /* ViewController.xib */,
+				CEBDC37415E7C39900C53B76 /* Supporting Files */,
+			);
+			path = DurakMobile;
+			sourceTree = "<group>";
+		};
+		CEBDC37415E7C39900C53B76 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				CEBDC37515E7C39900C53B76 /* DurakMobile-Info.plist */,
+				CEBDC37615E7C39900C53B76 /* InfoPlist.strings */,
+				CEBDC37915E7C39900C53B76 /* main.m */,
+				CEBDC37B15E7C39900C53B76 /* DurakMobile-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		CEBDC36815E7C39900C53B76 /* DurakMobile */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CEBDC38715E7C39900C53B76 /* Build configuration list for PBXNativeTarget "DurakMobile" */;
+			buildPhases = (
+				CEBDC36515E7C39900C53B76 /* Sources */,
+				CEBDC36615E7C39900C53B76 /* Frameworks */,
+				CEBDC36715E7C39900C53B76 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DurakMobile;
+			productName = DurakMobile;
+			productReference = CEBDC36915E7C39900C53B76 /* DurakMobile.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		CEBDC36015E7C39900C53B76 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0430;
+				ORGANIZATIONNAME = Sibers;
+			};
+			buildConfigurationList = CEBDC36315E7C39900C53B76 /* Build configuration list for PBXProject "DurakMobile" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = CEBDC35E15E7C39900C53B76;
+			productRefGroup = CEBDC36A15E7C39900C53B76 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				CEBDC36815E7C39900C53B76 /* DurakMobile */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		CEBDC36715E7C39900C53B76 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CEBDC37815E7C39900C53B76 /* InfoPlist.strings in Resources */,
+				CEBDC38415E7C39900C53B76 /* ViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		CEBDC36515E7C39900C53B76 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CEBDC37A15E7C39900C53B76 /* main.m in Sources */,
+				CEBDC37E15E7C39900C53B76 /* AppDelegate.m in Sources */,
+				CEBDC38115E7C39900C53B76 /* ViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		CEBDC37615E7C39900C53B76 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CEBDC37715E7C39900C53B76 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		CEBDC38215E7C39900C53B76 /* ViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CEBDC38315E7C39900C53B76 /* en */,
+			);
+			name = ViewController.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		CEBDC38515E7C39900C53B76 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		CEBDC38615E7C39900C53B76 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		CEBDC38815E7C39900C53B76 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "DurakMobile/DurakMobile-Prefix.pch";
+				INFOPLIST_FILE = "DurakMobile/DurakMobile-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		CEBDC38915E7C39900C53B76 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "DurakMobile/DurakMobile-Prefix.pch";
+				INFOPLIST_FILE = "DurakMobile/DurakMobile-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		CEBDC36315E7C39900C53B76 /* Build configuration list for PBXProject "DurakMobile" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CEBDC38515E7C39900C53B76 /* Debug */,
+				CEBDC38615E7C39900C53B76 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CEBDC38715E7C39900C53B76 /* Build configuration list for PBXNativeTarget "DurakMobile" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CEBDC38815E7C39900C53B76 /* Debug */,
+				CEBDC38915E7C39900C53B76 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = CEBDC36015E7C39900C53B76 /* Project object */;
+}
