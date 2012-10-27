@@ -12,8 +12,10 @@
 
 @interface GameViewController (ComputerGameLogic)
 
-- (void)createComputerCards;
-- (BOOL)findComputerCardForCard:(Card *)card;
+- (void)addCardsToComputer:(NSUInteger)numberOfCards;
+- (void)computerTakesAllCenterCard;
+- (void)computerTakeTrump;
 
+- (BOOL)findComputerCardForCard:(Card *)card;
 - (BOOL)computerMove;
 @end

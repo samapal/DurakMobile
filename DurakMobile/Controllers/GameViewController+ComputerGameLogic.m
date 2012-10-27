@@ -16,7 +16,7 @@
 
 @implementation GameViewController (ComputerGameLogic)
 
-- (BOOL)haveViewForCard:(Card *)card
+/*- (BOOL)haveViewForCard:(Card *)card
 {
     BOOL have = NO;
     for(NSUInteger i = 0; i < _computerCardViews.count && !have; i++) {
@@ -24,7 +24,7 @@
         have = ([view.card isEqual:card]);
     }
     return have;
-}
+}*/
 
 - (void)layoutComputerCards
 {
@@ -40,20 +40,41 @@
     }
 }
 
-- (void)createComputerCards
+- (void)computerTakesAllCenterCard
 {
-    Model *m = [Model shared];
-    for (Card *card in m.computerCards) {
-        if(![self haveViewForCard:card]) {
-            CardView *cardView = [[CardView alloc]initWithCard:card];
-            cardView.layer.borderColor = [UIColor blackColor].CGColor;
-            cardView.layer.borderWidth = 1.0;
-            
-            [_computerScrollView addSubview:cardView];
-            [_computerCardViews addObject:cardView];
-        }
+    for (CardView *cardView in _centerCardViews){
+        cardView.layer.borderColor = [UIColor greenColor].CGColor;
+        cardView.layer.borderWidth = 1.0;
+        [cardView removeFromSuperview];
+        [_computerScrollView addSubview:cardView];
+        [_computerCardViews addObject:cardView];
+    }
+    [_centerCardViews removeAllObjects];
+    [self layoutComputerCards];
+}
+
+- (void)addCardsToComputer:(NSUInteger)numberOfCards
+{
+    for (NSUInteger i = 0; i < numberOfCards; i++) {
+        NSUInteger index = arc4random() % _deck.count;
+        CardView *cardView = [_deck objectAtIndex:index];
+        cardView.layer.borderColor = [UIColor greenColor].CGColor;
+        cardView.layer.borderWidth = 1.0;
+        [_computerScrollView addSubview:cardView];
+        [_computerCardViews addObject:cardView];
+        [_deck removeObjectAtIndex:index];
     }
     [self layoutComputerCards];
+}
+
+- (void)computerTakeTrump
+{
+    [_trumpCardView removeFromSuperview];
+    _trumpCardView.layer.borderColor = [UIColor greenColor].CGColor;
+    _trumpCardView.layer.borderWidth = 1.0;
+    [_computerScrollView addSubview:_trumpCardView];
+    [_computerCardViews addObject:_trumpCardView];
+    _trumpCardView.transform = CGAffineTransformIdentity;
 }
 
 
@@ -71,10 +92,9 @@
 
 - (BOOL)findComputerCardForCard:(Card *)card;
 {
-    Model *m = [Model shared];
     NSMutableArray *properCardViews = [NSMutableArray array];
     NSMutableArray *trumps = [NSMutableArray array];
-    CardMast trumpMast = m.trumpCard.mast;
+    CardMast trumpMast = _trumpCardView.card.mast;
     for(CardView *cardView in _computerCardViews) {
         if((cardView.card.mast == card.mast) && (cardView.card.value > card.value)) {
             [properCardViews addObject:cardView];
@@ -104,17 +124,14 @@
 }
 
 - (void)computerMoveWithCardView:(CardView *)cardView {
-    Model *m = [Model shared];
-    [m.computerCards removeObject:cardView.card];
     [_computerCardViews removeObject:cardView];
     
-    [m.centerCards addObject:cardView.card];
     [_centerCardViews addObject:cardView];
     
     [cardView removeFromSuperview];
     [self.view addSubview:cardView];
     float originX = _computerScrollView.frame.origin.x + cardView.frame.origin.x - _computerScrollView.contentOffset.x;
-    cardView.frame = CGRectMake(originX, 380, 50, 70);
+    cardView.frame = CGRectMake(originX, 10, 50, 70);
     
     NSInteger count = _centerCardViews.count / 2 + _centerCardViews.count % 2;
     CGRect frame = CGRectMake(-20 + 30 * count + 5 * (count - 1), 180, 30, 45);
@@ -129,14 +146,14 @@
 
 - (BOOL)canMoveWithCard:(Card *)card
 {
-    Model *m = [Model shared];
-    if(!m.centerCards.count) {
+    if(!_centerCardViews.count) {
         return YES;
     }
     else {
         BOOL can = NO;
-        for (NSInteger  i = 0; i < m.centerCards.count && !can; i++) {
-            Card *centerCard = [m.centerCards objectAtIndex:i];
+        for (NSInteger  i = 0; i < _centerCardViews.count && !can; i++) {
+            CardView *view = [_centerCardViews objectAtIndex:i];
+            Card *centerCard = view.card;
             can = (centerCard.value == card.value);
         }
         return can;
@@ -145,8 +162,7 @@
 
 - (BOOL)computerMove
 {
-    Model *m = [Model shared];
-    CardMast trumpMast = m.trumpCard.mast;
+    CardMast trumpMast = _trumpCardView.card.mast;
     NSMutableArray *properCardsView = [NSMutableArray array];
     for(CardView *view in _computerCardViews) {
         if([self canMoveWithCard:view.card] && view.card.mast != trumpMast) {
@@ -159,7 +175,7 @@
         return YES;
     }
     else {
-        if(!m.centerCards.count) {
+        if(!_centerCardViews.count) {
             CardView *minCardView = [self cardViewWithMinCardFromArray:_computerCardViews];
             [self computerMoveWithCardView:minCardView];
             return YES;

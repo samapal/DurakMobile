@@ -11,5 +11,7 @@
 #import "CardView.h"
 
 @interface GameViewController (PlayerGameLogic) <CardViewDelegate>
-- (void)createPlayerCards;
+- (void)addCardsToPlayer:(NSUInteger)numberOfCards;
+- (void)playerTakesAllCenterCard;
+- (void)playerTakeTrump;
 @end

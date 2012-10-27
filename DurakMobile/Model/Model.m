@@ -8,11 +8,11 @@
 
 #import "Model.h"
 
-static Model *m;
+//static Model *m;
 
 
 @implementation Model
-@synthesize numberOfCardsInDeck = _numberOfCardsInDeck;
+/*@synthesize numberOfCardsInDeck = _numberOfCardsInDeck;
 @synthesize trumpCard = _trumpCard;
 @synthesize centerCards = _centerCardsValues;
 @synthesize playerCards = _playerCards;
@@ -47,70 +47,7 @@ static Model *m;
 }
 
 #pragma mark - 
-- (Card *)randomCard
-{
-    NSInteger mastIndex = arc4random() % _remainingMasts.count;
-    CardMast mast = [[_remainingMasts objectAtIndex:mastIndex] integerValue];
-    NSString *key = [NSString stringWithFormat:@"%d",mast];
-    NSMutableArray *values = [_remainingMastsValues objectForKey:key];
-    NSInteger valueIndex = arc4random() % values.count;
-    NSUInteger value = [[values objectAtIndex:valueIndex] integerValue];
-    [values removeObjectAtIndex:valueIndex];
-    if(!values.count) {
-        [_remainingMastsValues removeObjectForKey:key];
-        [_remainingMasts removeObjectAtIndex:mastIndex];
-    }
-    else {
-        [_remainingMastsValues setObject:values forKey:key];
-    }
-    Card *card = [[Card alloc]initWithMast:mast andValue:value];
-    return card;
-}
 
-- (void)resetRemainingCardData
-{
-    [_remainingMasts removeAllObjects];
-    [_remainingMastsValues removeAllObjects];
-    NSNumber *mastNumber = [NSNumber numberWithInteger:CardMastBubi];
-    [_remainingMasts addObject:mastNumber];
-    NSMutableArray *valuesArray1 = [NSMutableArray arrayWithCapacity:_numberOfCardsInMast];
-    for (NSUInteger i = 0; i < _numberOfCardsInMast; i++) {
-        NSNumber *value = [NSNumber numberWithInteger:6 + i];
-        [valuesArray1 addObject:value];
-    }
-    NSString *key = [NSString stringWithFormat:@"%d",CardMastBubi];
-    [_remainingMastsValues setObject:valuesArray1 forKey:key];
-    
-    mastNumber = [NSNumber numberWithInteger:CardMastPiki];
-    [_remainingMasts addObject:mastNumber];
-    NSMutableArray *valuesArray2 = [NSMutableArray arrayWithCapacity:_numberOfCardsInMast];
-    for (NSUInteger i = 0; i < _numberOfCardsInMast; i++) {
-        NSNumber *value = [NSNumber numberWithInteger:6 + i];
-        [valuesArray2 addObject:value];
-    }
-    key = [NSString stringWithFormat:@"%d",CardMastPiki];
-    [_remainingMastsValues setObject:valuesArray2 forKey:key];
-    
-    mastNumber = [NSNumber numberWithInteger:CardMastKresti];
-    [_remainingMasts addObject:mastNumber];
-    NSMutableArray *valuesArray3 = [NSMutableArray arrayWithCapacity:_numberOfCardsInMast];
-    for (NSUInteger i = 0; i < _numberOfCardsInMast; i++) {
-        NSNumber *value = [NSNumber numberWithInteger:6 + i];
-        [valuesArray3 addObject:value];
-    }
-    key = [NSString stringWithFormat:@"%d",CardMastKresti];
-    [_remainingMastsValues setObject:valuesArray3 forKey:key];
-    
-    mastNumber = [NSNumber numberWithInteger:CardMastChervi];
-    [_remainingMasts addObject:mastNumber];
-    NSMutableArray *valuesArray4 = [NSMutableArray arrayWithCapacity:_numberOfCardsInMast];
-    for (NSUInteger i = 0; i < _numberOfCardsInMast; i++) {
-        NSNumber *value = [NSNumber numberWithInteger:6 + i];
-        [valuesArray4 addObject:value];
-    }
-    key = [NSString stringWithFormat:@"%d",CardMastChervi];
-    [_remainingMastsValues setObject:valuesArray4 forKey:key];
-}
 
 - (void)startNewGame
 {
@@ -138,5 +75,5 @@ static Model *m;
         Card *card = [self randomCard];
         [_computerCards addObject:card];
     }
-}
+}*/
 @end

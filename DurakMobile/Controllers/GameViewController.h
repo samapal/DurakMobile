@@ -13,19 +13,24 @@ typedef enum {
     GameStatePlayer
 }GameState;
 
+@class CardView;
 
 @interface GameViewController : BaseViewController
 {
-    NSMutableArray *_deck;
-    NSMutableArray *_playerCardViews;
-    NSMutableArray *_computerCardViews;
-    NSMutableArray *_centerCardViews;
-    GameState       _gameState;
+    NSMutableArray *        _remainingMasts;
+    NSMutableDictionary   * _remainingMastsValues;
+    CardView *              _trumpCardView;
+    
+    NSMutableArray *        _deck;
+    NSMutableArray *        _playerCardViews;
+    NSMutableArray *        _computerCardViews;
+    NSMutableArray *        _centerCardViews;
+    GameState               _gameState;
     
     
-    IBOutlet UIScrollView *_playerScrollView;
-    IBOutlet UIScrollView *_computerScrollView;
-    IBOutlet UIButton     *_gameButton;
+    IBOutlet UIScrollView * _playerScrollView;
+    IBOutlet UIScrollView * _computerScrollView;
+    IBOutlet UIButton     * _gameButton;
     
     
     UIView *_messageView;

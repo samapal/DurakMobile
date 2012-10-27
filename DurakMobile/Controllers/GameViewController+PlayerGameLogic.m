@@ -17,7 +17,7 @@
 
 @implementation GameViewController (PlayerGameLogic)
 
-- (BOOL)haveViewForCard:(Card *)card
+/*- (BOOL)haveViewForCard:(Card *)card
 {
     BOOL have = NO;
     for(NSUInteger i = 0; i < _playerCardViews.count && !have; i++) {
@@ -25,7 +25,7 @@
         have = ([view.card isEqual:card]);
     }
     return have;
-}
+}*/
 
 - (void)layoutPlayerCards
 {
@@ -41,33 +41,57 @@
     }
 }
 
-- (void)createPlayerCards
+
+- (void)addCardsToPlayer:(NSUInteger)numberOfCards
 {
-    Model *m = [Model shared];
-    for (Card *card in m.playerCards) {
-        if(![self haveViewForCard:card]) {
-            CardView *cardView = [[CardView alloc]initWithCard:card];
-            cardView.delegate = self;
-            cardView.layer.borderColor = [UIColor blackColor].CGColor;
-            cardView.layer.borderWidth = 1.0;
-            
-            [_playerScrollView addSubview:cardView];
-            [_playerCardViews addObject:cardView];
-        }
+    for (NSUInteger i = 0; i < numberOfCards; i++) {
+        NSUInteger index = arc4random() % _deck.count;
+        CardView *cardView = [_deck objectAtIndex:index];
+        cardView.delegate = self;
+        cardView.layer.borderColor = [UIColor redColor].CGColor;
+        cardView.layer.borderWidth = 1.0;
+        [_playerScrollView addSubview:cardView];
+        [_playerCardViews addObject:cardView];
+        [_deck removeObjectAtIndex:index];
     }
     [self layoutPlayerCards];
 }
 
+- (void)playerTakesAllCenterCard
+{
+    for (CardView *cardView in _centerCardViews) {
+        cardView.delegate = self;
+        cardView.layer.borderColor = [UIColor redColor].CGColor;
+        cardView.layer.borderWidth = 1.0;
+        [cardView removeFromSuperview];
+        [_playerScrollView addSubview:cardView];
+        [_playerCardViews addObject:cardView];
+    }
+    [_centerCardViews removeAllObjects];
+    [self layoutPlayerCards];
+}
+
+- (void)playerTakeTrump
+{
+    [_trumpCardView removeFromSuperview];
+    _trumpCardView.delegate = self;
+    _trumpCardView.layer.borderColor = [UIColor redColor].CGColor;
+    _trumpCardView.layer.borderWidth = 1.0;
+    [_playerScrollView addSubview:_trumpCardView];
+    [_playerCardViews addObject:_trumpCardView];
+    _trumpCardView.transform = CGAffineTransformIdentity;
+}
+
 - (BOOL)canAddCard:(Card *)card
 {
-    Model *m = [Model shared];
-    if(!m.centerCards.count) {
+    if(!_centerCardViews.count) {
         return YES;
     }
     else {
         BOOL can = NO;
-        for (NSInteger  i = 0; i < m.centerCards.count && !can; i++) {
-            Card *centerCard = [m.centerCards objectAtIndex:i];
+        for (NSInteger  i = 0; i < _centerCardViews.count && !can; i++) {
+            CardView *view = [_centerCardViews objectAtIndex:i];
+            Card *centerCard = view.card;
             can = (centerCard.value == card.value);
         }
         return can;
@@ -76,12 +100,9 @@
 
 - (void)playerMoveWithCardView:(CardView *)cardview
 {
-    Model *m = [Model shared];
-    [m.playerCards removeObject:cardview.card];
     [_playerCardViews removeObject:cardview];
     cardview.delegate = nil;
     
-    [m.centerCards addObject:cardview.card];
     [_centerCardViews addObject:cardview];     
     
     [cardview removeFromSuperview];
@@ -103,7 +124,6 @@
 #pragma mark - CardViewDelegate
 - (void)didSelectCardView:(CardView *)cardview
 {
-    Model *m = [Model shared];
     if(_gameState == GameStatePlayer) {        
         if([self canAddCard:cardview.card]) {
             [self playerMoveWithCardView:cardview];
@@ -113,8 +133,9 @@
         }
     }
     else {
-        Card *computerCard = [m.centerCards lastObject];
-        CardMast trumpMast = m.trumpCard.mast;
+        CardView *view = [_centerCardViews lastObject];
+        Card *computerCard = view.card;
+        CardMast trumpMast = _trumpCardView.card.mast;
         if((cardview.card.mast == computerCard.mast && cardview.card.value > computerCard.value)
            || (cardview.card.mast == trumpMast && computerCard.mast !=  trumpMast)) {
             [self playerMoveWithCardView:cardview];

@@ -12,17 +12,18 @@
 
 @interface Model : NSObject
 {
-    NSMutableArray *_remainingMasts;
-    NSMutableDictionary   *_remainingMastsValues;
-    NSInteger _numberOfCardsInMast;
+    NSMutableArray *        _remainingMasts;
+    NSMutableDictionary   * _remainingMastsValues;
+    NSInteger               _numberOfCardsInMast;
+    NSInteger               _numberOfCardsInDeck;
 }
-@property (nonatomic, assign) NSInteger         numberOfCardsInDeck;
-@property (nonatomic, assign) Card *            trumpCard;
+//@property (nonatomic, assign) NSInteger         numberOfCardsInDeck;
+/*@property (nonatomic, assign) Card *            trumpCard;
 @property (nonatomic, strong) NSMutableArray *  centerCards;
 @property (nonatomic, strong) NSMutableArray *  playerCards;
 @property (nonatomic, strong) NSMutableArray *  computerCards;
 
 
 + (Model *)shared NS_RETURNS_NOT_RETAINED;
-- (void)startNewGame;
+- (void)startNewGame;*/
 @end

@@ -22,12 +22,15 @@
 - (IBAction)gameButtonAction:(id)sender
 {
     if(_gameState == GameStateComputer) {
+        [self takeCardsFromCenter];
         [self showMessage:@"GameStateChange Player Take all center cards"];
     }
     else if(_gameState == GameStatePlayer) {
+        [self addCardsFromTheDeck];
         _gameState = GameStateComputer;
         [_gameButton setTitle:@"Beru" forState:UIControlStateNormal];
         [self showMessage:@"GameStateChange Player don't have cards anymore"];
+        
     }
     else {
         NSAssert(NO,@"Wrong Game State in change method!");
@@ -91,16 +94,18 @@
 
 
 #pragma mark - lifecycle
-- (void)viewDidLoad
+- (void)startNewGame
 {
-    [super viewDidLoad];
-    [[Model shared]startNewGame];
-    _centerCardViews = [[NSMutableArray alloc]init];
-    _playerCardViews = [[NSMutableArray alloc]init];
-    _computerCardViews = [[NSMutableArray alloc]init];
+    [self resetRemainingCardData];
+    [_playerCardViews removeAllObjects];
+    [_computerCardViews removeAllObjects];
+    [_centerCardViews removeAllObjects];
+    [_deck removeAllObjects];
     [self createDeck];
-    [self createPlayerCards];
-    [self createComputerCards];
+    [self addCardsToPlayer:6];
+    [self addCardsToComputer:6];
+    
+    
     _gameState = arc4random() % 2;
     if(_gameState == GameStatePlayer) {
         [self showMessage:@"GameStatePlayer"];
@@ -115,42 +120,271 @@
         NSAssert(NO,@"Wrong GameState in view didLoad");
     }
 }
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    _remainingMasts = [[NSMutableArray alloc]initWithCapacity:4];
+    _remainingMastsValues = [[NSMutableDictionary alloc]initWithCapacity:4];
+    _centerCardViews = [[NSMutableArray alloc]init];
+    _playerCardViews = [[NSMutableArray alloc]init];
+    _computerCardViews = [[NSMutableArray alloc]init];
+    _deck = [[NSMutableArray alloc]initWithCapacity: 36];
+    
+    [self startNewGame];
+}
 
 #pragma mark - animations methods
 - (void)createDeck
 {
-    Model *m = [Model shared];
-    _deck = [[NSMutableArray alloc]initWithCapacity:m.numberOfCardsInDeck];
     CGPoint center = CGPointMake(200, self.view.center.y - 35);
-    CardView *cardView = [[CardView alloc]initWithCard:m.trumpCard];
-    cardView.frame = CGRectMake(center.x, center.y, 50, 70);
-    cardView.transform = CGAffineTransformMakeRotation(M_PI_2);
-    [self.view addSubview:cardView];
-    [_deck addObject:cardView];
+    _trumpCardView = [[CardView alloc]initWithCard:[self randomCard]];
+    _trumpCardView.frame = CGRectMake(center.x, center.y, 50, 70);
+    _trumpCardView.transform = CGAffineTransformMakeRotation(M_PI_2);
+    [self.view addSubview:_trumpCardView];
+    //[_deck addObject:cardView];
     
-    for( NSUInteger i = 1; i < m.numberOfCardsInDeck; i++) {
+    for( NSUInteger i = 1; i < 36; i++) {
         CGPoint center = CGPointMake(240, self.view.center.y - 35);
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(center.x, center.y, 50, 70)];
-        imageView.backgroundColor = [UIColor greenColor];
+        Card *card = [self randomCard];
+        CardView *cardView = [[CardView alloc]initWithCard:card];
+        cardView.frame = CGRectMake(center.x, center.y, 50, 70);
+        cardView.backgroundColor = [UIColor greenColor];
 
-        [self.view addSubview:imageView];
-        [_deck addObject:imageView];
+        [self.view addSubview:cardView];
+        [_deck addObject:cardView];
     }
 }
 
 #pragma common game methods
+- (Card *)randomCard
+{
+    NSInteger mastIndex = arc4random() % _remainingMasts.count;
+    CardMast mast = [[_remainingMasts objectAtIndex:mastIndex] integerValue];
+    NSString *key = [NSString stringWithFormat:@"%d",mast];
+    NSMutableArray *values = [_remainingMastsValues objectForKey:key];
+    NSInteger valueIndex = arc4random() % values.count;
+    NSUInteger value = [[values objectAtIndex:valueIndex] integerValue];
+    [values removeObjectAtIndex:valueIndex];
+    if(!values.count) {
+        [_remainingMastsValues removeObjectForKey:key];
+        [_remainingMasts removeObjectAtIndex:mastIndex];
+    }
+    else {
+        [_remainingMastsValues setObject:values forKey:key];
+    }
+    Card *card = [[Card alloc]initWithMast:mast andValue:value];
+    return card;
+}
+
+- (void)resetRemainingCardData
+{
+    [_remainingMasts removeAllObjects];
+    [_remainingMastsValues removeAllObjects];
+    NSNumber *mastNumber = [NSNumber numberWithInteger:CardMastBubi];
+    [_remainingMasts addObject:mastNumber];
+    NSMutableArray *valuesArray1 = [NSMutableArray arrayWithCapacity:9];
+    for (NSUInteger i = 0; i < 9; i++) {
+        NSNumber *value = [NSNumber numberWithInteger:6 + i];
+        [valuesArray1 addObject:value];
+    }
+    NSString *key = [NSString stringWithFormat:@"%d",CardMastBubi];
+    [_remainingMastsValues setObject:valuesArray1 forKey:key];
+    
+    mastNumber = [NSNumber numberWithInteger:CardMastPiki];
+    [_remainingMasts addObject:mastNumber];
+    NSMutableArray *valuesArray2 = [NSMutableArray arrayWithCapacity:9];
+    for (NSUInteger i = 0; i < 9; i++) {
+        NSNumber *value = [NSNumber numberWithInteger:6 + i];
+        [valuesArray2 addObject:value];
+    }
+    key = [NSString stringWithFormat:@"%d",CardMastPiki];
+    [_remainingMastsValues setObject:valuesArray2 forKey:key];
+    
+    mastNumber = [NSNumber numberWithInteger:CardMastKresti];
+    [_remainingMasts addObject:mastNumber];
+    NSMutableArray *valuesArray3 = [NSMutableArray arrayWithCapacity:9];
+    for (NSUInteger i = 0; i < 9; i++) {
+        NSNumber *value = [NSNumber numberWithInteger:6 + i];
+        [valuesArray3 addObject:value];
+    }
+    key = [NSString stringWithFormat:@"%d",CardMastKresti];
+    [_remainingMastsValues setObject:valuesArray3 forKey:key];
+    
+    mastNumber = [NSNumber numberWithInteger:CardMastChervi];
+    [_remainingMasts addObject:mastNumber];
+    NSMutableArray *valuesArray4 = [NSMutableArray arrayWithCapacity:9];
+    for (NSUInteger i = 0; i < 9; i++) {
+        NSNumber *value = [NSNumber numberWithInteger:6 + i];
+        [valuesArray4 addObject:value];
+    }
+    key = [NSString stringWithFormat:@"%d",CardMastChervi];
+    [_remainingMastsValues setObject:valuesArray4 forKey:key];
+}
+
+
+
 - (void)changeGameState
 {
     if(_gameState == GameStateComputer) {
+        [self addCardsFromTheDeck];
         _gameState = GameStatePlayer;
         [_gameButton setTitle:@"Hvatit" forState:UIControlStateNormal];
         [self showMessage:@"GameStateChange Computer don't have cards anymore"];
     }
     else if(_gameState == GameStatePlayer) {
+        [self takeCardsFromCenter];
         [self showMessage:@"GameStateChange Computer Take all center cards"];
     }
     else {
         NSAssert(NO,@"Wrong Game State in change method!");
     }
+}
+
+- (void)addCardsFromTheDeck
+{
+    [_centerCardViews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    [_centerCardViews removeAllObjects];
+    
+    NSUInteger playerCardsNeed = 6 - _playerCardViews.count;
+    BOOL isPlayerNeedCards = (playerCardsNeed > 0);
+    NSUInteger computerCardsNeed = 6 - _computerCardViews.count;
+    BOOL isComputerNeedCards = (computerCardsNeed > 0);
+    #warning add My own game logic here
+    /*if(_deck.count < (computerCardsNeed + playerCardsNeed)) {
+    }*/
+    switch (_gameState) {
+        case GameStatePlayer: {
+            if(isPlayerNeedCards) {
+                if(!_deck.count) {
+                    //[self playerWin];
+                }
+                else {
+                    if(playerCardsNeed > _deck.count) {
+                        [self addCardsToPlayer:_deck.count];
+                        [self playerTakeTrump];
+                    }
+                    else {
+                        [self addCardsToPlayer:playerCardsNeed];
+                    }
+                }
+            }
+            if(isComputerNeedCards) {
+                if(!_deck.count) {
+                    //[self computerWin];
+                }
+                else {
+                    if(computerCardsNeed > _deck.count) {
+                        [self addCardsToComputer:_deck.count];
+                        [self computerTakeTrump];
+                    }
+                    else {
+                        [self addCardsToComputer:computerCardsNeed];
+                    }
+                }
+            }
+            [self computerMove];
+        }
+            break;
+        case GameStateComputer: {
+            if(isComputerNeedCards) {
+                if(!_deck.count) {
+                    //[self computerWin];
+                }
+                else {
+                    if(computerCardsNeed > _deck.count) {
+                        [self addCardsToComputer:_deck.count];
+                        [self computerTakeTrump];
+                    }
+                    else {
+                        [self addCardsToComputer:computerCardsNeed];
+                    }
+                }
+            }
+            if(isPlayerNeedCards) {
+                if(!_deck.count) {
+                    //[self playerWin];
+                }
+                else {
+                    if(playerCardsNeed > _deck.count) {
+                        [self addCardsToPlayer:_deck.count];
+                        [self playerTakeTrump];
+                    }
+                    else {
+                        [self addCardsToPlayer:playerCardsNeed];
+                    }
+                }
+            }
+        }
+            break;
+            
+        default: {
+            NSAssert(NO, @"Wrong GameState in addCardsFromTheDeck");
+        }
+            break;
+    }
+}
+
+- (void)takeCardsFromCenter
+{
+    switch (_gameState) {
+        case GameStatePlayer: {
+            [self computerTakesAllCenterCard];
+            NSUInteger playerCardsNeed = 6 - _playerCardViews.count;
+            BOOL isPlayerNeedCards = (playerCardsNeed > 0);
+            if(isPlayerNeedCards) {
+                if(!_deck.count) {
+                    //[self playerWin];
+                }
+                else {
+                    if(playerCardsNeed > _deck.count) {
+                        [self addCardsToPlayer:_deck.count];
+                        [self playerTakeTrump];
+                    }
+                    else {
+                        [self addCardsToPlayer:playerCardsNeed];
+                    }
+                }
+            }
+        }
+            break;
+        case GameStateComputer: {
+            [self playerTakesAllCenterCard];
+            NSUInteger computerCardsNeed = 6 - _computerCardViews.count;
+            BOOL isComputerNeedCards = (computerCardsNeed > 0);
+            if(isComputerNeedCards) {
+                if(!_deck.count) {
+                    //[self computerWin];
+                }
+                else {
+                    if(computerCardsNeed > _deck.count) {
+                        [self addCardsToComputer:_deck.count];
+                        [self computerTakeTrump];
+                    }
+                    else {
+                        [self addCardsToComputer:computerCardsNeed];
+                    }
+                }
+            }
+            [self computerMove];
+        }
+            break;
+            
+        default: {
+            NSAssert(NO, @"Wrong GameState in addCardsFromTheDeck");
+        }
+            break;
+    }
+}
+
+- (void)playerWin
+{
+    UIAlertView *view = [[UIAlertView alloc]initWithTitle:@"Player" message:@"WIN!!!!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+    [view show];
+}
+
+- (void)computerWin
+{
+    UIAlertView *view = [[UIAlertView alloc]initWithTitle:@"Computer" message:@"WIN!!!!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+    [view show];
 }
 @end
